@@ -28,10 +28,6 @@ api=Api(app)
 
 
 jwt = JWT(app, authenticate, identity)   #JSON Web Token (JWT) - creates a /auth endpoint
-                
-@app.before_first_request
-def create_tables():
-    db.create_all()
     
 api.add_resource(Item, '/item/<string:name>')
 api.add_resource(ItemList,'/items')
@@ -41,6 +37,10 @@ api.add_resource(StoreList, '/stores')
 
 api.add_resource(UserRegister,'/register')
 
+@app.before_first_request
+def create_tables():
+    db.create_all()
+    
 if __name__ == '__main__':  # this means this app will not run unless it is main that is being run
     db.init_app(app)
     app.run(port=5000, debug=True)
