@@ -35,12 +35,15 @@ api.add_resource(StoreList, '/stores')
 
 api.add_resource(UserRegister,'/register')
 
-@app.before_first_request
-def create_tables():
-    db.create_all()
+
     
 if __name__ == '__main__':  # this means this app will not run unless it is main that is being run
     from db import db
+    
+    @app.before_first_request
+    def create_tables():
+        db.create_all()
+    
     db.init_app(app)
     app.run(port=5000, debug=True)
 
