@@ -15,8 +15,6 @@ from resources.user import UserRegister
 from resources.item import Item, ItemList
 from resources.store import Store, StoreList
 
-from db import db
-
 
     
 app = Flask(__name__)
@@ -42,6 +40,7 @@ def create_tables():
     db.create_all()
     
 if __name__ == '__main__':  # this means this app will not run unless it is main that is being run
+    from db import db
     db.init_app(app)
     app.run(port=5000, debug=True)
 
