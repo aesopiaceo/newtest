@@ -17,9 +17,7 @@ from resources.store import Store, StoreList
 
 from db import db
 
-@app.before_first_request
-def create_tables():
-    db.create_all()
+
     
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
@@ -31,6 +29,9 @@ api=Api(app)
 
 jwt = JWT(app, authenticate, identity)   #JSON Web Token (JWT) - creates a /auth endpoint
                 
+@app.before_first_request
+def create_tables():
+    db.create_all()
     
 api.add_resource(Item, '/item/<string:name>')
 api.add_resource(ItemList,'/items')
